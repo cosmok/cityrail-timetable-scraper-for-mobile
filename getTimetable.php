@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Australia/Sydney');
 require dirname(__FILE__) . '/stations.php';
 
 $from = isset($argv[1]) ? $argv[1] : $_GET['from'];
