@@ -194,9 +194,17 @@ ul#history_list {
     margin-left: 0;
 }
 ul#history_list li{
-    list-style: none;
-   padding: 1.25em 0.5em;
+   list-style: none;
+   padding: 0.8em .5em;
 }
+ul#history_list li:hover {
+	background:#ffffee;
+	border-color:#523A0B;
+}
+ul#history_list li a{
+    border-bottom: 1px dotted;
+}
+
 </style>
 <script type="text/javascript" language="javascript">
     sections = ["home", "history", "about"];
@@ -253,6 +261,9 @@ ul#history_list li{
         }
         document.getElementById('loading').style.display = 'none';
         for(i = 0 ; i < timeTables.length; i++) {
+            if(!timeTables[i].length > 0) {
+                continue;
+            }
             output += '<table class="timeTable">';
             for(j = 0; j < timeTables[i].length; j++) {
                 output += '<thead>';
