@@ -269,11 +269,12 @@ div#about_text ol {
         timeTables = eval( '(' + responseText + ')' );        
         var output = '';
         var zClass = '';
+        document.getElementById('loading').style.display = 'none';
         if (!timeTables.length > 0) {
             document.getElementById('info').innerHTML = 'Sorry, No Info available for your selection';
             document.getElementById('info').style.display = 'block';
+            return;
         }
-        document.getElementById('loading').style.display = 'none';
         for(i = 0 ; i < timeTables.length; i++) {
             if(!timeTables[i].length > 0) {
                 continue;
@@ -368,12 +369,15 @@ div#about_text ol {
         }
     }
     function showHistory() {
+        document.getElementById('history').innerHTML = '';
         if(!localStorage['history']) {
+            document.getElementById('info').innerHTML = 'History Cleared/Nothing in History, yet!';
+            document.getElementById('info').style.display = 'block';
             return;
         }
         var historys = JSON.parse(localStorage['history']);
         if(!historys.count > 0) {
-            document.getElementById('info').innerHTML = 'Nothing in History, yet!';
+            document.getElementById('info').innerHTML = 'History Cleared/Nothing in History, yet!';
             document.getElementById('info').style.display = 'block';
             return;
         }
@@ -392,6 +396,7 @@ div#about_text ol {
             output += '</li>';
         }
         output += '</ul>';
+        output += '<a href="#" onclick="localStorage.clear(\'history\');showHistory();return false;">Clear all History</a>';
         document.getElementById('history').innerHTML = output;
     }
     
