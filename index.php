@@ -20,20 +20,13 @@ table {
 	margin:0 0 1em;
 	color:#000;
 	}
-table a {
+ a {
 	color:#523A0B;
 	text-decoration:none;
-	border-bottom:1px dotted;
 	}
-table a:visited {
+ a:visited {
 	color:#444;
 	font-weight:normal;
-	}
-table a:visited:after {
-	content:"\00A0\221A";
-	}
-table a:hover {
-	border-bottom-style:solid;
 	}
 thead th,
 thead td,
@@ -155,11 +148,61 @@ color:#222222;
 padding:4px;
 text-align:center;
 }
+#navcontainer ul
+{
+    padding-left: 0;
+    margin-left: 0;
+    background: none repeat scroll 0 0 #EBE5D9;
+color: White;
+float: left;
+width: 100%;
+       font-family: arial, helvetica, sans-serif;
+}
+
+#navcontainer ul li { display: inline; }
+
+#navcontainer ul li a
+{
+padding: 0.2em 1em;
+
+    background: none repeat scroll 0 0 #EBE5D9;
+color: #000;
+       text-decoration: none;
+float: left;
+       border-right: 1px solid #fff;
+       border-bottom-width:0;
+}
+
+#navcontainer ul li a:hover, #navcontainer ul li a.current
+{
+background-color:#ffffee;
+color: #000;
+}
+#home,#about,#history {
+clear:both;
+}
+#about,#history {
+display:none;
+}
+.odd {
+	border-color:#EBE5D9;
+	background:#F7F4EE;
+}
+ul#history_list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+ul#history_list li{
+    list-style: none;
+   padding: 0.35em 0.5em;
+}
 </style>
 <script type="text/javascript" language="javascript">
+    sections = ["home", "history", "about"];
+    navlists = ["1_1", "2_1", "3_1"];
     function makeRequest(url) {
         var httpRequest;
-
         if (window.XMLHttpRequest) { // Mozilla, Safari, ...
             httpRequest = new XMLHttpRequest();
             if (httpRequest.overrideMimeType) {
@@ -186,11 +229,9 @@ text-align:center;
         httpRequest.onreadystatechange = function() { handleResponse(httpRequest); };
         httpRequest.open('GET', url, true);
         httpRequest.send('');
-
     }
 
     function handleResponse(httpRequest) {
-
         if (httpRequest.readyState == 4) {
             if (httpRequest.status == 200) {
                 renderTimetable(httpRequest.responseText);
@@ -204,14 +245,12 @@ text-align:center;
     function renderTimetable(responseText)
     {
         timeTables = eval( '(' + responseText + ')' );        
-
         var output = '';
         var zClass = '';
         if (!timeTables.length > 0) {
             document.getElementById('info').innerHTML = 'Sorry, No Info available for your selection';
             document.getElementById('info').style.display = 'block';
         }
-
         document.getElementById('loading').style.display = 'none';
         for(i = 0 ; i < timeTables.length; i++) {
             output += '<table class="timeTable">';
@@ -246,6 +285,25 @@ text-align:center;
             }
             output += '</table>';
         }
+        var key = document.getElementById('from').value + '_-_' + document.getElementById('to').value;
+
+        if(!localStorage['history']) {
+            var init = {};
+            init.count = 0;
+            init.queries = {};
+            localStorage['history'] = JSON.stringify(init); 
+        }
+        var historys = JSON.parse(localStorage['history']);
+        if(!historys.queries[key]) {
+            var count = historys.count + 1;
+            historys.count = count;
+            historys.queries[key] = {accessCount: 1, lastAccess: new Date()};
+            localStorage['history'] = JSON.stringify(historys);
+        } else {
+            var accessCount = historys.queries[key].accessCount + 1;
+            historys.queries[key] = {accessCount: accessCount, lastAccess: new Date()};
+            localStorage['history'] = JSON.stringify(historys);
+        }
         document.getElementById('timeTable').innerHTML = output;
     }
     
@@ -256,19 +314,81 @@ text-align:center;
         makeRequest('getTimetable.php?from=' + document.getElementById('from').value + '&to=' + document.getElementById('to').value);
         return false;
     }
+    function showSection(id) {
+        document.getElementById('info').style.display = 'none';
+        var section = document.getElementById(id);
+        if(!section) {
+            return;
+        }
+        if(-1 == sections.indexOf(id)) {
+            return;
+        }
+        for(s in sections) {
+            if(id === sections[s]) document.getElementById(sections[s]).style.display = 'block';
+            else document.getElementById(sections[s]).style.display = 'none';
+        }
+    }
+    function selectNav(id) {
+        var nav = document.getElementById(id);
+        if(!nav) {
+            return;
+        }
+        if(-1 == navlists.indexOf(id)) {
+            return;
+        }
+        for(n in navlists) {
+            if(id === navlists[n]) document.getElementById(navlists[n]).setAttribute((document.all ? 'className' : 'class'), "current");
+            else document.getElementById(navlists[n]).removeAttribute(document.all ? 'className' : 'class');
+        }
+    }
+    function showHistory() {
+        if(!localStorage['history']) {
+            return;
+        }
+        var historys = JSON.parse(localStorage['history']);
+        if(!historys.count > 0) {
+            document.getElementById('info').innerHTML = 'Nothing in History, yet!';
+            document.getElementById('info').style.display = 'block';
+            return;
+        }
+        var liClass = '';
+        var output = '<ul id="history_list">';
+        for(h in historys.queries) {
+            liClass = (liClass == '') ? 'odd' : '';
+            var stations = h.split('_-_');
+            output += '<li class="' + liClass + '">';
+            output += '<a href="?from=' + stations[0] + '&to=' + stations[1] + '">' + stations[0] + ' to '+ stations[1] + '</a>';
+            output += '</li>';
+        }
+        output += '</ul>';
+        document.getElementById('history').innerHTML = output;
+    }
+
+
 </script>
-<meta name="viewport"
- content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 </head>
 <body>
 <div id="wrapper">
+<div id="navcontainer">
+<ul id="navlist">
+<li id="active"><a href="#" onclick="selectNav('1_1');showSection('home');return false;" id="1_1" class="current">Home</a></li>
+<li><a href="#" onclick="selectNav('2_1');showSection('history');showHistory();return false;" id="2_1">History</a></li>
+<li><a href="#" onclick="selectNav('3_1');showSection('about');return false" id="3_1">About</a></li>
+</ul>
+</div>
+<div id="home">
 <form onsubmit="getTimetable();return false;">
     <p>
     <label for="from">From</label>
     <select name="from" id="from">
     <?php
     foreach ($stations as $station):
-       echo '<option value="' . $station . '">' . $station . '</option>';
+       echo '<option value="' . $station . '"';
+       if($_GET['from'] === $station):
+           echo ' selected="selected" ';
+       endif;
+       echo '>' . $station . '</option>';
     endforeach
     ?>
     </select>
@@ -278,7 +398,11 @@ text-align:center;
     <select name="to" id="to">
     <?php
     foreach ($stations as $station):
-       echo '<option value="' . $station . '">' . $station . '</option>';
+       echo '<option value="' . $station . '"';
+       if($_GET['to'] === $station):
+           echo ' selected="selected" ';
+       endif;
+       echo '>' . $station . '</option>';
     endforeach
     ?>
     </select>
@@ -288,8 +412,21 @@ text-align:center;
         <span id="loading"><img src="loading.gif" />Loading..</span>
     </p>
 </form>
-<p id="info"></p>
-    <div id="timeTable">
-    </div>
+    <div id="timeTable"></div>
 </div>
+    <div id="history"></div>
+    <div id="about">About</div>
+     <p id="info"></p>
+</div>
+<?php
+    if(!empty($_GET['from']) && !empty($_GET['to'])) :
+        if(in_array($_GET['from'], $stations) && in_array($_GET['to'], $stations)) :
+?>
+    <script type="text/javascript">
+        getTimetable();
+    </script>
+<?php
+        endif;
+    endif;
+?>
 </body>
