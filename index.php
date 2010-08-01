@@ -1,9 +1,12 @@
 <?php
 require dirname(__FILE__) . '/stations.php';
 ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
 <head>
 <title>Mobile Timetable</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <style>
 body {
 	font:normal 76%/150% "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
@@ -204,6 +207,17 @@ ul#history_list li:hover {
 ul#history_list li a{
     border-bottom: 1px dotted;
 }
+img#my_photo{
+float:left;
+margin-right:7px;
+width:150px;
+}
+div#about_text{
+    vertical-align:top;
+}
+div#about_text ol {
+    margin-left: 139px;
+}
 
 </style>
 <script type="text/javascript" language="javascript">
@@ -374,61 +388,76 @@ ul#history_list li a{
         output += '</ul>';
         document.getElementById('history').innerHTML = output;
     }
-
-
+    
+    function sortByAccessTime(a,b) {
+        return a.lastAccess - b.lastAccess;
+    }
+     
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 </head>
 <body>
-<div id="wrapper">
-<div id="navcontainer">
-<ul id="navlist">
-<li id="active"><a href="#" onclick="selectNav('1_1');showSection('home');return false;" id="1_1" class="current">Home</a></li>
-<li><a href="#" onclick="selectNav('2_1');showSection('history');showHistory();return false;" id="2_1">History</a></li>
-<li><a href="#" onclick="selectNav('3_1');showSection('about');return false" id="3_1">About</a></li>
-</ul>
-</div>
-<div id="home">
-<form onsubmit="getTimetable();return false;">
-    <p>
-    <label for="from">From</label>
-    <select name="from" id="from">
-    <?php
-    foreach ($stations as $station):
-       echo '<option value="' . $station . '"';
-       if($_GET['from'] === $station):
-           echo ' selected="selected" ';
-       endif;
-       echo '>' . $station . '</option>';
-    endforeach
-    ?>
-    </select>
-    </p>
-    <p>
-    <label for="To">To</label>
-    <select name="to" id="to">
-    <?php
-    foreach ($stations as $station):
-       echo '<option value="' . $station . '"';
-       if($_GET['to'] === $station):
-           echo ' selected="selected" ';
-       endif;
-       echo '>' . $station . '</option>';
-    endforeach
-    ?>
-    </select>
-    </p>
-    <p>
-        <input type="submit" class="button white"/>
-        <span id="loading"><img src="loading.gif" />Loading..</span>
-    </p>
-</form>
-    <div id="timeTable"></div>
-</div>
+    <div id="wrapper">
+        <div id="navcontainer">
+            <ul id="navlist">
+                <li id="active"><a href="#" onclick="selectNav('1_1');showSection('home');return false;" id="1_1" class="current">Home</a></li>
+                <li><a href="#" onclick="selectNav('2_1');showSection('history');showHistory();return false;" id="2_1">History</a></li>
+                <li><a href="#" onclick="selectNav('3_1');showSection('about');return false" id="3_1">About</a></li>
+            </ul>
+        </div><!-- div#navcontainer -->
+        <div id="home">
+        <form onsubmit="getTimetable();return false;">
+            <p>
+                <label for="from">From</label>
+                <select name="from" id="from">
+                <?php
+                    foreach ($stations as $station):
+                       echo '<option value="' . $station . '"';
+                       if($_GET['from'] === $station):
+                           echo ' selected="selected" ';
+                       endif;
+                       echo '>' . $station . '</option>';
+                    endforeach
+                ?>
+                </select><!-- select#from -->
+            </p>
+            <p>
+                <label for="To">To</label>
+                <select name="to" id="to">
+                <?php
+                foreach ($stations as $station):
+                    echo '<option value="' . $station . '"';
+                    if($_GET['to'] === $station):
+                        echo ' selected="selected" ';
+                    endif;
+                    echo '>' . $station . '</option>';
+                endforeach
+                ?>
+                </select><!-- select#to -->
+            </p>
+            <p>
+                <input type="submit" class="button white"/>
+                <span id="loading"><img src="loading.gif" />Loading..</span>
+            </p>
+        </form>
+        <div id="timeTable"></div>
+    </div><!-- div#home -->
     <div id="history"></div>
-    <div id="about">About</div>
-     <p id="info"></p>
-</div>
+    <div id="about">
+        <img src="k7.jpg" id="my_photo" alt="k7" />
+        <div id="about_text">
+        <span>I created this page for 2 reasons:</span>
+            <ol>
+                <li>I wasn't too happy with the cityrail apps available for Android phones.</li>
+                <li>I wanted to play around with some HTML5 features.</li>
+            </ol>
+            <h5>Privacy</h5>
+            Your search History is stored in your Device and you can clear it using your Browsers/Devices normal mechanism.
+            <h5>About Me</h5>
+            My name is Kesavan(k7). I am a web developer working in Sydney. You can contact me on k7@trk7.com.
+        </div><!-- div#about_text -->
+    </div><!-- div#about -->
+    <p id="info"></p>
+</div><!-- wrapper -->
 <?php
     if(!empty($_GET['from']) && !empty($_GET['to'])) :
         if(in_array($_GET['from'], $stations) && in_array($_GET['to'], $stations)) :
@@ -441,3 +470,4 @@ ul#history_list li a{
     endif;
 ?>
 </body>
+</html>
