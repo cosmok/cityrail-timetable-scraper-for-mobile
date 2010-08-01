@@ -465,7 +465,7 @@ div#about_text ol {
                 <li>I wanted to play around with some HTML5 features.</li>
             </ol>
             <h5>Privacy</h5>
-            Your search History is stored in your Device and you can clear it by clicking "Clear all History"at the bottom of the History page or by using your Browsers/Devices normal mechanism.
+            Your search History is stored in your Device and you can clear it by clicking "Clear all History" at the bottom of the History page or by using your Browsers/Devices normal mechanism.
             <h5>About Me</h5>
             My name is Kesavan(k7). I am a web developer working in Sydney. You can contact me on k7@trk7.com.
         </div><!-- div#about_text -->
