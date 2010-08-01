@@ -195,7 +195,7 @@ ul#history_list {
 }
 ul#history_list li{
     list-style: none;
-   padding: 0.35em 0.5em;
+   padding: 1.5em 0.5em;
 }
 </style>
 <script type="text/javascript" language="javascript">
