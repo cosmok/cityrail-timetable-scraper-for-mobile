@@ -319,14 +319,15 @@ div#about_text ol {
             localStorage['history'] = JSON.stringify(init); 
         }
         var historys = JSON.parse(localStorage['history']);
+        var d = new Date();
         if(!historys.queries[key]) {
             var count = historys.count + 1;
             historys.count = count;
-            historys.queries[key] = {accessCount: 1, lastAccess: new Date()};
+            historys.queries[key] = {accessCount: 1, lastAccess: d.getTime()};
             localStorage['history'] = JSON.stringify(historys);
         } else {
             var accessCount = historys.queries[key].accessCount + 1;
-            historys.queries[key] = {accessCount: accessCount, lastAccess: new Date()};
+            historys.queries[key] = {accessCount: accessCount, lastAccess: d.getTime()};
             localStorage['history'] = JSON.stringify(historys);
         }
         document.getElementById('timeTable').innerHTML = output;
@@ -378,9 +379,14 @@ div#about_text ol {
         }
         var liClass = '';
         var output = '<ul id="history_list">';
+        var hSortable = [];
         for(h in historys.queries) {
+            hSortable.push({route : h, accessCount: historys.queries[h].accessCount, lastAccess: historys.queries[h].lastAccess});
+        }
+        hSortable.sort(sortByAccessTime);
+        for(h in hSortable) {
             liClass = (liClass == '') ? 'odd' : '';
-            var stations = h.split('_-_');
+            var stations = hSortable[h].route.split('_-_');
             output += '<li class="' + liClass + '">';
             output += '<a href="?from=' + stations[0] + '&to=' + stations[1] + '">' + stations[0] + ' to '+ stations[1] + '</a>';
             output += '</li>';
@@ -390,9 +396,12 @@ div#about_text ol {
     }
     
     function sortByAccessTime(a,b) {
-        return a.lastAccess - b.lastAccess;
+        return  -1 * (a.lastAccess - b.lastAccess);
     }
-     
+
+    function sortByAccessCount(a,b) {
+        return  -1 * (a.accessCount - b.accessCount);
+    }
 </script>
 </head>
 <body>
