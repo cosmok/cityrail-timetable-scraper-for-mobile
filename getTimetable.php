@@ -7,7 +7,7 @@ $to   = isset($argv[2]) ? $argv[2] : $_GET['to'];
 if (!in_array($from, $stations) || !in_array($to, $stations)) {
     exit('Cannot understand');
 }
-$url = constructURL('http://www.131500.com.au/fullEnquiry.asp', array('from' => $from, 'to' => $to));
+$url = constructURL('http://www.131500.com.au/plan-your-trip', array('from' => $from, 'to' => $to));
 $scrape = @file_get_contents($url);
 if (!$scrape) {
     exit('cannot');
@@ -43,7 +43,7 @@ foreach ($results as $i => $entry) {
 echo json_encode($schedules);
 function constructURL($url, $params)
 {
-    //http://www.131500.com.au/fullEnquiry.asp?Vehicle=Train&WalkSpeed=NORMAL&Priority=504&IsAfter=A&Date=31%2F7%2F2010&MaxChanges=-1&FromLocType=s&ToLocType=s&ViaLocType=&NotViaLocType=&Wheelchair=&Time=11%3A35AM&FromLoc=Croydon+Station~~%3BCroydon+Station%3BCroydon+Station~~LOCATION&ToLoc=Strathfield+%282135221%29~~%3BStrathfield+%282135221%29%3BStrathfield+%282135221%29~~LOCATION&x=28&y=20
+    //http://www.131500.com.au/plan-your-trip/?Vehicle=Train&WalkSpeed=NORMAL&Priority=504&IsAfter=A&Date=31%2F7%2F2010&MaxChanges=-1&FromLocType=s&ToLocType=s&ViaLocType=&NotViaLocType=&Wheelchair=&Time=11%3A35AM&FromLoc=Croydon+Station~~%3BCroydon+Station%3BCroydon+Station~~LOCATION&ToLoc=Strathfield+%282135221%29~~%3BStrathfield+%282135221%29%3BStrathfield+%282135221%29~~LOCATION&x=28&y=20
     $genericParams = array(
                         'pmode' => 1,
                         'x'     => 10,
@@ -64,5 +64,5 @@ function constructURL($url, $params)
     $newParams['ToLoc']   = $params['to'] . ' Station~~;' . $params['to'] . ' Station;' . $params['to'] . ' Station~~LOCATION';
     $newParams['Date']    = date('j:n:o');
     $newParams['Time']    = date('g:iA');
-    return ($url . '?'. http_build_query($genericParams + $newParams));
+    return ($url . '/?'. http_build_query($genericParams + $newParams));
 }
