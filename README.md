@@ -15,6 +15,8 @@ How
 ------------------
 I use PHP to scrape the [131500](http://131500.com.au "Official Timetables") website to get the timetables.
 
+If you would like to build your own app and just need an api to get the timetables then, just look at the getTimetable.php file.
+
 License
 ------------------
 WTFPL
