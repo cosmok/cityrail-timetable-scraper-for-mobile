@@ -31,7 +31,7 @@ foreach ($results as $i => $entry) {
     $results2 = $xpath2->query('//tbody/tr/td[2]');
     foreach($results2 as $j => $entry2) {
         $scheduleText = preg_replace("/\\n\\s*/", " ", trim($entry2->nodeValue));
-        preg_match('/Take\s*the\s*(.*)Dep:\s*([0-9apm:\+]*)\s*(.*)\s*Platform\s*(\d+)\s*Arr:\s*([0-9apm:\+]*)\s*(.*)\s*Platform\s*(\d+)(.*)/', $scheduleText, $matches);
+        preg_match('/Take\s*the\s*(.*)Dep:\s*([0-9apm:\+]*)\s*(.*)\s*Platform\s*(\d+),?.*Arr:\s*([0-9apm:\+]*)\s*(.*)\s*Platform\s*(\d+)(.*)/', $scheduleText, $matches);
         if (!empty($matches)) {
             $schedules[$i][$j]['train'] = $matches[1];
             $schedules[$i][$j]['depTime'] = $matches[2];
