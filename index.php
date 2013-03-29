@@ -143,6 +143,7 @@ vertical-align:baseline;
 }
 #loading{
 display:none;
+font-size: 120%;
 }
 p#info{
 display:none;
