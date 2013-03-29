@@ -1,7 +1,7 @@
 Cityrail Timetable on Mobile Devices
 ====================================
 
-[Check out an example](http://77.92.77.138:8080/cr/ "A live webpage running this code")
+[Check out an example](http://cr.trk7.com/ "A live webpage running this code")
 
 What
 ------------------
