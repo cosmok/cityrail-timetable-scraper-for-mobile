@@ -83,8 +83,9 @@ caption {
 	padding:0.5em 0.25em;
 	}
 table.timeTable {
+margin-top : 25px;
 width:100%;
-border-bottom: 1px dotted #000;
+border: 1px solid #000;
 }
 table.timeTable tr th{
     text-align: left;
