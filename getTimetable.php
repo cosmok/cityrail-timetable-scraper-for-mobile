@@ -8,7 +8,11 @@ if (!in_array($from, $stations) || !in_array($to, $stations)) {
     exit('Cannot understand');
 }
 $url = constructURL('http://www.131500.com.au/plan-your-trip/trip-planner', array('from' => $from, 'to' => $to));
-$scrape = @file_get_contents($url);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$scrape = curl_exec($ch);
+curl_close($ch);
 if (!$scrape) {
     exit('cannot');
 }
