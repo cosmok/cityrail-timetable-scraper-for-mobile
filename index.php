@@ -12,6 +12,8 @@ body {
 	font:normal 76%/150% "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
     overflow-x:hidden;
 }
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
 /*
 Coffee with milk
 Table design by Roger Johansson, 456 Berea Street
@@ -83,7 +85,7 @@ caption {
 	padding:0.5em 0.25em;
 	}
 table.timeTable {
-margin-top : 25px;
+margin-top : 21px;
 width:100%;
 border: 1px solid #000;
 }
@@ -111,12 +113,18 @@ float:right;
 div#wrapper {
 }
 form p {
-height:25px;
+height:30px;
+}
+
+form select{
+font-size: 18px;
+margin: 0;
 }
 
 form label {
-width: 50px;
-line-height:25px;
+width: 45px;
+font-size: 15px;
+line-height:20px;
 float: left;
 }
 .white {
@@ -156,6 +164,7 @@ text-align:center;
 {
     padding-left: 0;
     margin-left: 0;
+    margin-top: 0;
     background: none repeat scroll 0 0 #EBE5D9;
 color: White;
 float: left;
@@ -170,11 +179,12 @@ width: 100%;
 padding: 0.2em 1em;
 
     background: none repeat scroll 0 0 #EBE5D9;
-color: #000;
+    color: #000;
        text-decoration: none;
 float: left;
        border-right: 1px solid #fff;
        border-bottom-width:0;
+       font-size: 140%;
 }
 
 #navcontainer ul li a:hover, #navcontainer ul li a.current
@@ -450,7 +460,7 @@ div#about_text ol {
                 </select><!-- select#to -->
             </p>
             <p>
-                <input type="submit" class="button white"/>
+                <input type="submit" class="button white" value="Submit" />
                 <span id="loading"><img src="loading.gif" />Loading..</span>
             </p>
         </form>
