@@ -132,7 +132,6 @@ color:#606060;
 -webkit-border-radius: .5em; 
 -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
 cursor:pointer;
-display:inline-block;
 font:14px/100% Arial,Helvetica,sans-serif;
 margin:0 2px;
 outline:medium none;
@@ -338,7 +337,7 @@ div#about_text ol {
     function getTimetable() {
         document.getElementById('timeTable').innerHTML = '';
         document.getElementById('info').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
+        document.getElementById('loading').style.display = 'inline';
         makeRequest('getTimetable.php?from=' + document.getElementById('from').value + '&to=' + document.getElementById('to').value);
         return false;
     }
