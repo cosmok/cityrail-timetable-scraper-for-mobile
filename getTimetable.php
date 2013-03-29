@@ -43,7 +43,9 @@ foreach ($results as $i => $entry) {
         }
     }
 }
-echo json_encode($schedules);
+$output['cityrailURL'] = $url;
+$output['schedules']   = $schedules;
+echo json_encode($output);
 function constructURL($url, $params)
 {
     //http://www.131500.com.au/plan-your-trip/trip-planner?session=invalidate&itd_anyObjFilter_origin=2&itd_name_origin=Strathfield&itd_anyObjFilter_destination=2&itd_name_destination=Croydon&itd_itdDate=20100904&itd_itdTripDateTimeDepArr=dep&itd_itdTimeHour=6&itd_itdTimeMinute=45&itd_itdTimeAMPM=pm&itd_includedMeans=checkbox&itd_inclMOT_7=1&itd_inclMOT_1=Train&itd_trITMOT=100&itd_trITMOTvalue100=15&itd_changeSpeed=normal&itd_routeType=LEASTINTERCHANGE&x=76&y=16

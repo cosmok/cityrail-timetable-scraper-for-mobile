@@ -223,6 +223,13 @@ div#about_text{
 div#about_text ol {
     margin-left: 139px;
 }
+#linkToCityRail {
+   display: none;
+}
+#linkToCityRail a {
+    text-decoration: underline;
+    color: #075D90;
+}
 </style>
 
 <script type="text/javascript" language="javascript">
@@ -261,34 +268,40 @@ div#about_text ol {
     function handleResponse(httpRequest) {
         if (httpRequest.readyState == 4) {
             if (httpRequest.status == 200) {
-                renderTimetable(httpRequest.responseText);
+                output = eval( '(' + httpRequest.responseText + ')' );        
+                renderTimetable(output.schedules);
+                renderLinkToCityrail(output.cityrailURL);
             } else {
                 alert('There was a problem with the request.');
             }
         }
 
     }
+    
+    function renderLinkToCityrail(url) {
+        document.getElementById('linkToCityRail').innerHTML = '<a href="' + url + '">131500</a>';
+        document.getElementById('linkToCityRail').style.display = 'block';
+    }
 
-    function renderTimetable(responseText)
+    function renderTimetable(schedules)
     {
-        timeTables = eval( '(' + responseText + ')' );        
         var output = '';
         var zClass = '';
         document.getElementById('loading').style.display = 'none';
-        if (!timeTables.length > 0) {
+        if (!schedules.length > 0) {
             document.getElementById('info').innerHTML = 'Sorry, No Info available for your selection';
             document.getElementById('info').style.display = 'block';
             return;
         }
-        for(i = 0 ; i < timeTables.length; i++) {
-            if(!timeTables[i].length > 0) {
+        for(i = 0 ; i < schedules.length; i++) {
+            if(!schedules[i].length > 0) {
                 continue;
             }
             output += '<table class="timeTable">';
-            for(j = 0; j < timeTables[i].length; j++) {
+            for(j = 0; j < schedules[i].length; j++) {
                 output += '<thead>';
                 output += '<tr>';
-                output += '<th colspan="3">' + timeTables[i][j].train + '</th>';
+                output += '<th colspan="3">' + schedules[i][j].train + '</th>';
                 output += '</tr>';
                 output += '</thead>';
                 output += '<tbody>';
@@ -298,9 +311,9 @@ div#about_text ol {
                     zClass = 'odd';
                 }
                 output += '<tr class="' + zClass + '">';
-                output += '<td class="station"><span>' + timeTables[i][j].depStation + '</span></td>';
-                output += '<td class="platform"><span>'+ timeTables[i][j].depPlatform + '</span></td>'; 
-                output += '<td class="time"><span>' + timeTables[i][j].depTime + '</span></td>';
+                output += '<td class="station"><span>' + schedules[i][j].depStation + '</span></td>';
+                output += '<td class="platform"><span>'+ schedules[i][j].depPlatform + '</span></td>'; 
+                output += '<td class="time"><span>' + schedules[i][j].depTime + '</span></td>';
                 output += '</tr>';
                 if(zClass == 'odd') {
                     zClass = '';
@@ -308,9 +321,9 @@ div#about_text ol {
                     zClass = 'odd';
                 }
                 output += '<tr>';
-                output += '<td class="station"><span>' + timeTables[i][j].arrStation + '</span></td>';
-                output += '<td class="platform"><span>'+ timeTables[i][j].arrPlatform + '</span></td>'; 
-                output += '<td class="time"><span>' + timeTables[i][j].arrTime + '</span></td>';
+                output += '<td class="station"><span>' + schedules[i][j].arrStation + '</span></td>';
+                output += '<td class="platform"><span>'+ schedules[i][j].arrPlatform + '</span></td>'; 
+                output += '<td class="time"><span>' + schedules[i][j].arrTime + '</span></td>';
                 output += '</tr>';
                 output += '</tbody>';
             }
@@ -342,12 +355,14 @@ div#about_text ol {
     function getTimetable() {
         document.getElementById('timeTable').innerHTML = '';
         document.getElementById('info').style.display = 'none';
+        document.getElementById('linkToCityRail').style.display = 'none';
         document.getElementById('loading').style.display = 'inline';
         makeRequest('getTimetable.php?from=' + document.getElementById('from').value + '&to=' + document.getElementById('to').value);
         return false;
     }
     function showSection(id) {
         document.getElementById('info').style.display = 'none';
+        document.getElementById('linkToCityRail').style.display = 'none';
         var section = document.getElementById(id);
         if(!section) {
             return;
@@ -476,6 +491,7 @@ div#about_text ol {
         </div><!-- div#about_text -->
     </div><!-- div#about -->
     <p id="info"></p>
+    <p id="linkToCityRail"></p>
 </div><!-- wrapper -->
 <?php
     if(!empty($_GET['from']) && !empty($_GET['to'])) :
