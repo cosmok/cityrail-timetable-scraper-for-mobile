@@ -85,80 +85,76 @@ caption {
 	padding:0.5em 0.25em;
 	}
 table.timeTable {
-margin-top : 21px;
-width:100%;
-border: 1px solid #000;
+    margin-top : 21px;
+    width:100%;
+    border: 1px solid #000;
 }
 table.timeTable tr th{
     text-align: left;
 }
 table.timeTable tr td.station {
-width:75%;
+    width:75%;
 }
 table.timeTable tr td.station span{
     text-align:left;
 }
 table.timeTable tr td.platform {
-width:5%;
+    width:5%;
 }
 table.timeTable tr td.platform span{
     float:right;
 }
 table.timeTable tr td.time {
-width:20%;
+    width:20%;
 }
 table.timeTable tr td.time span{
-float:right;
-}
-div#wrapper {
+    float:right;
 }
 form p {
-height:30px;
+    height:30px;
 }
-
 form select{
-font-size: 18px;
-margin: 0;
+    font-size: 18px;
+    margin: 0;
 }
-
 form label {
-width: 45px;
-font-size: 15px;
-line-height:20px;
-float: left;
+    width: 45px;
+    font-size: 15px;
+    line-height:20px;
+    float: left;
 }
 .white {
-background:-moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
-background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
-filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
-border:1px solid #B7B7B7;
-color:#606060;
+    background:-moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+    border:1px solid #B7B7B7;
+    color:#606060;
 }
 .button {
--moz-border-radius:0.5em 0.5em 0.5em 0.5em;
--moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
--webkit-border-radius: .5em; 
--webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-cursor:pointer;
-font:14px/100% Arial,Helvetica,sans-serif;
-margin:0 2px;
-outline:medium none;
-padding:0.5em 2em 0.55em;
-text-align:center;
-text-decoration:none;
-text-shadow:0 1px 1px rgba(0, 0, 0, 0.3);
-vertical-align:baseline;
+    -moz-border-radius:0.5em 0.5em 0.5em 0.5em;
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: .5em; 
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    cursor:pointer;
+    font:14px/100% Arial,Helvetica,sans-serif;
+    margin:0 2px;
+    outline:medium none;
+    padding:0.5em 2em 0.55em;
+    text-align:center;
+    text-decoration:none;
+    text-shadow:0 1px 1px rgba(0, 0, 0, 0.3);
+    vertical-align:baseline;
 }
 #loading{
-display:none;
-font-size: 120%;
+    display:none;
+    font-size: 120%;
 }
 p#info{
-display:none;
-background:none repeat scroll 0 0 #FFFFCC;
-color:#222222;
-padding:4px;
-text-align:center;
+    display:none;
+    background:none repeat scroll 0 0 #FFFFCC;
+    color:#222222;
+    padding:4px;
+    text-align:center;
 }
 #navcontainer ul
 {
@@ -166,37 +162,35 @@ text-align:center;
     margin-left: 0;
     margin-top: 0;
     background: none repeat scroll 0 0 #EBE5D9;
-color: White;
-float: left;
-width: 100%;
-       font-family: arial, helvetica, sans-serif;
+    color: White;
+    float: left;
+    width: 100%;
+    font-family: arial, helvetica, sans-serif;
 }
-
-#navcontainer ul li { display: inline; }
-
+#navcontainer ul li { 
+    display: inline; 
+}
 #navcontainer ul li a
 {
-padding: 0.2em 1em;
-
+    padding: 0.2em 1em;
     background: none repeat scroll 0 0 #EBE5D9;
     color: #000;
-       text-decoration: none;
-float: left;
-       border-right: 1px solid #fff;
-       border-bottom-width:0;
-       font-size: 140%;
+    text-decoration: none;
+    float: left;
+    border-right: 1px solid #fff;
+    border-bottom-width:0;
+    font-size: 140%;
 }
-
 #navcontainer ul li a:hover, #navcontainer ul li a.current
 {
-background-color:#ffffee;
-color: #000;
+    background-color:#ffffee;
+    color: #000;
 }
 #home,#about,#history {
-clear:both;
+    clear:both;
 }
 #about,#history {
-display:none;
+    display:none;
 }
 .odd {
 	border-color:#EBE5D9;
@@ -219,9 +213,9 @@ ul#history_list li a{
     border-bottom: 1px dotted;
 }
 img#my_photo{
-float:left;
-margin-right:7px;
-width:150px;
+    float:left;
+    margin-right:7px;
+    width:150px;
 }
 div#about_text{
     vertical-align:top;
@@ -229,8 +223,8 @@ div#about_text{
 div#about_text ol {
     margin-left: 139px;
 }
-
 </style>
+
 <script type="text/javascript" language="javascript">
     sections = ["home", "history", "about"];
     navlists = ["1_1", "2_1", "3_1"];
